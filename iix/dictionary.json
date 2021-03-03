@@ -1,0 +1,38 @@
+[
+    {
+        "_id": "trigger-manually",
+        "type": "trigger",
+        "displayName": "Manually",
+        "description": ""
+    },
+    {
+        "_id": "trigger-notified",
+        "type": "trigger",
+        "displayName": "Notified",
+        "description": ""
+    },
+    {
+        "_id": "trigger-scheduled",
+        "type": "trigger",
+        "displayName": "Scheduled",
+        "description": ""
+    },
+    {
+        "_id": "execution-status-success",
+        "type": "execution-status",
+        "displayName": "Success",
+        "description": ""
+    },
+    {
+        "_id": "execution-status-pending",
+        "type": "execution-status",
+        "displayName": "Pending",
+        "description": ""
+    },
+    {
+        "_id": "execution-status-failure",
+        "type": "execution-status",
+        "displayName": "Failure",
+        "description": ""
+    }
+]

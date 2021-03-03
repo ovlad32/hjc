@@ -1,0 +1,174 @@
+[
+    {
+        "_id": 1,
+        "displayName": "Simple rule 1",
+        "type": "simple",
+        "definition": "{const:1}",
+        "datasource": "io69274.us-east-1",
+        "query": {
+            "snowflake": {
+                "sql": "select 1",
+                "role": "public",
+                "warehouse": "DEMO_WH"
+            }
+        }
+    },
+    {
+        "_id": 2,
+        "displayName": "Percentage of male customers",
+        "type": "simple",
+        "definition": "{const:2}",
+        "datasource": "io69274.us-east-1",
+        "query": {
+            "snowflake": {
+                "sql": "SELECT ROUND((sum(CASE WHEN sex= 'M' THEN 1 END)/count(*))*100,2) AS MALE_CUSTOMERS_PERCENT
+    FROM DEMO_DB.CRA.customers",
+    "role": "public",
+                "warehouse": "DEMO_WH"
+            }
+        }
+    },
+    {
+        "_id": 3,
+        "displayName": "Percentage of female customers",
+        "type": "simple",
+        "definition": "{const:3}",
+        "datasource": "io69274.us-east-1",
+        "query": {
+            "snowflake": {
+                "sql": "SELECT ROUND((sum(CASE WHEN sex= 'F' THEN 1 END)/count(*))*100,2) AS FEMALE_CUSTOMERS_PERCENT
+    FROM DEMO_DB.CRA.customers",
+    "role": "public",
+                "warehouse": "DEMO_WH"
+            }
+        }
+    },
+    {
+        "_id": 4,
+        "displayName": "Count of customers not in Tristate area",
+        "type": "simple",
+        "definition": "{const:4}",
+        "datasource": "io69274.us-east-1",
+        "query": {
+            "snowflake": {
+                "sql": "SELECT COUNT(*)
+    FROM DEMO_DB.CRA.CUSTOMER_ADDRESSES ca
+    WHERE STATE_PROVINCE NOT IN ('NY','NJ','CT')",
+    "role": "public",
+                "warehouse": "DEMO_WH"
+            }
+        }
+    },
+    {
+        "_id": 5,
+        "displayName": "Percentage of customers in Tristate area",
+        "type": "simple",
+        "definition": "{const:5}",
+        "datasource": "io69274.us-east-1",
+        "query": {
+            "snowflake": {
+                "sql": "SELECT ROUND((SUM(CASE WHEN STATE_PROVINCE IN ('NY','NJ','CT') THEN 1 END)/COUNT(*))*100,2) AS TRISTATE_CUSTOMER_PERCENT
+    FROM DEMO_DB.CRA.CUSTOMER_ADDRESSES ca1",
+    "role": "public",
+                "warehouse": "DEMO_WH"
+            }
+        }
+    },
+    {
+        "_id": 6,
+        "displayName": "maximum number of customers grouped by state",
+        "type": "simple",
+        "definition": "{const:6}",
+        "datasource": "io69274.us-east-1",
+        "query": {
+            "snowflake": {
+                "sql": "SELECT CUST_COUNT
+    FROM (SELECT STATE_PROVINCE ,COUNT(*) AS CUST_COUNT,RANK()OVER(ORDER BY COUNT(*) DESC) AS RANKING
+    FROM DEMO_DB.CRA.CUSTOMER_ADDRESSES ca
+    GROUP BY STATE_PROVINCE)S
+    WHERE S.RANKING =1",
+    "role": "public",
+                "warehouse": "DEMO_WH"
+            }
+        }
+    },
+    {
+        "_id": 7,
+        "displayName": "Number of long term loans with Stock collateral",
+        "type": "simple",
+        "definition": "{const:7}",
+        "datasource": "io69274.us-east-1",
+        "query": {
+            "snowflake": {
+                "sql": "SELECT COUNT(*)    FROM DEMO_DB.CRA.LIABILITIES L
+    WHERE L.COLLATERAL_TYPE = 'STOCKS' AND L.LIABILITY_TYPE ='LONG TERM'",
+    "role": "public",
+                "warehouse": "DEMO_WH"
+            }
+        }
+    },
+    {
+        "_id": 8,
+        "displayName": "check if the TIN is in a valid format for individual customers",
+        "type": "simple",
+        "definition": "{const:8}",
+        "datasource": "io69274.us-east-1",
+        "query": {
+            "snowflake": {
+                "sql": "select count(*)     FROM DEMO_DB.CRA.CUSTOMERS c2     where  regexp_like (TIN, '9[0-9]{2}-[0-9]{
+                2
+            }-[
+                0-9
+            ]{
+                4
+            }') AND CUSTOMER_TYPE = 'INDIVIDUAL'",
+    "role": "public",
+            "warehouse": "DEMO_WH"
+        }
+    }
+},
+{
+    "_id": 9,
+    "displayName": "Count of customers living in Louisiana, USA",
+    "type": "simple",
+    "definition": "{const:9}",
+    "datasource": "io69274.us-east-1",
+    "query": {
+        "snowflake": {
+            "sql": "SELECT COUNT(*)  FROM DEMO_DB.CRA.CUSTOMER_ADDRESSES ca   JOIN DEMO_DB.CRA.STATE_PROVINCES s    on ca.STATE_PROVINCE = s.STATE_PROVINCE_CODE     WHERE s.STATE_PROVINCE_NAME = 'Louisiana' and s.country_code = 'USA'",
+            "role": "public",
+            "warehouse": "DEMO_WH"
+        }
+    }
+}
+    
+    
+    {
+    "_id": 10,
+    "displayName": "Count of customers having more than 1 address",
+    "type": "simple",
+    "definition": "{const:10}",
+    "datasource": "io69274.us-east-1",
+    "query": {
+        "snowflake": {
+            "sql": "select count(*) from (  select ca.customer_id,count(*) from DEMO_DB.CRA.CUSTOMER_ADDRESSES ca group by ca.customer_id having count(*) >1  )s",
+            "role": "public",
+            "warehouse": "DEMO_WH"
+        }
+    }
+},
+{
+    "_id": 11,
+    "displayName": "Count of customers having more than 1 document issued to them",
+    "type": "simple",
+    "definition": "{const:11}",
+    "datasource": "io69274.us-east-1",
+    "query": {
+        "snowflake": {
+            "sql": "select count(*) from (  select cd.customer_id,count(*) from DEMO_DB.CRA.CUSTOMER_DOCUMENTS cd group by cd.customer_id having count(*) >1 )s",
+            "role": "public",
+            "warehouse": "DEMO_WH"
+        }
+    }
+}
+]

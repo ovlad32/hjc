@@ -1,0 +1,55 @@
+
+/*
+package main
+const LineFeedByte = byte('\n')
+
+//\r   U+000D carriage return
+const CarriageReturnByte = byte('\r')
+
+func TruncateFromCRLF(value []byte) []byte {
+	l := len(value)
+	if l == 0 {
+		return value
+	}
+	for _, c := range []byte{LineFeedByte, CarriageReturnByte} {
+		if value[l-1] == c {
+			value = value[:l-1]
+		}
+
+		if value[0] == c {
+			value = value[1:]
+			l--
+		}
+	}
+	return value
+}
+*/
+
+//r.columnFunc(r.sp.Separator())
+/*
+	rdr := strings.NewReader(rowData);
+	sc := bufio.NewScanner(rdr)
+	sc.Split(rm.columnSplitFunc());
+*/
+/*
+func (r rvs) Scanner(rowData string) *bufio.Scanner {
+	sc := bufio.NewScanner(strings.NewReader(rowData))
+	sc.Split(r.columnFunc());
+	return sc
+}
+
+func (r rvs) columnFunc() bufio.SplitFunc{
+	return func(data []byte, atEOF bool) (advance int, token []byte, err error) {
+		for i:= range data {
+			if data[i] == byte(r.cnf.Separator()) {
+				return i + 1, data[:i], nil
+			}
+		}
+		if !atEOF {
+			return 0, nil, nil
+		}
+		return 0, data, bufio.ErrFinalToken
+	}
+}
+
+*/

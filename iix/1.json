@@ -1,0 +1,16 @@
+{
+    "_id": 1,
+    "displayName": "Simple rule 1",
+    "type": "simple",
+    "definition": "{const:1}",
+    "datasource": "io69274.us-east-1",
+    "collection:":"",
+    "query": {
+        "snowflake":{
+            "sql": "select 1",
+            "role": "public",
+            "warehouse": "DEMO_WH"
+        }
+    }
+}
+

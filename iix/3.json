@@ -1,0 +1,23 @@
+{
+    collMod: "address_types",
+    validator: { $jsonSchema: {
+       bsonType: "object",
+       required: [
+                "address_type",
+                "address_type_name"
+            ],
+       properties: {
+          address_type: {
+             bsonType: "string",
+             description: "must be a string and is required"
+                }
+            },
+          address_type_name: {
+             bsonType: "string",
+             description: "must be a string and is required"
+            }
+        }
+    },
+    validationLevel: "strict",
+    validationAction: "warn"
+})
